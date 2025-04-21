@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playing {{ video_name }}</title>
+    <!-- Include the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Video Player</h1>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary" style="padding: 5px 15px; font-size: 14px;">
+            Back to List
+        </a>
+    </div>
+    
+    <div class="main-content">
+        <div class="video-title">{{ video_name }}</div>
+        
+        <div class="video-container">
+            <video controls autoplay id="videoPlayer">
+                <source src="{{ url_for('main.stream_video', file_id=video_id) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div id="videoError">
+            Error loading video. Try downloading the file instead.
+        </div>
+        
+        <div class="controls">
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Videos
+            </a>
+            
+            <a href="{{ url_for('main.stream_video', file_id=video_id) }}" download class="btn btn-download">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                Download
+            </a>
+            
+            <button class="btn btn-danger" onclick="confirmDelete('{{ video_id }}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                    <line x1="10" y1="11" x2="10" y2="17"/>
+                    <line x1="14" y1="11" x2="14" y2="17"/>
+                </svg>
+                Delete Video
+            </button>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast"></div>
+    
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">Delete Video</div>
+            <div class="modal-message">Are you sure you want to delete this video? This action cannot be undone.</div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">Cancel</button>
+                <button id="confirmDeleteBtn" class="modal-btn delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the JS file -->
+    <script src="{{ url_for('static', filename='js/play.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+.env
+venv/
+.venv/
+public/video/
+token.pickle
