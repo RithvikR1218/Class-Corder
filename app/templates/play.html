@@ -20,7 +20,8 @@
         
         <div class="video-container">
             <video controls autoplay id="videoPlayer">
-                <source src="{{ url_for('main.stream_video', file_id=video_id) }}" type="video/mp4">
+                <!-- <source src="{{ url_for('main.stream_video', file_id=video_id) }}" type="video/mp4"> -->
+                <source src="{{ url_for('main.stream_video', file_id=video_id) }}" type="video/hevc">
                 Your browser does not support the video tag.
             </video>
         </div>
